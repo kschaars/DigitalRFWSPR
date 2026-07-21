@@ -1,7 +1,7 @@
 ##### README for digitalRFWSPRDecoder.py: 
 
 This program was written by Kevin Schaars under MIT Haystack Obsevatory based on DDC code from John Swoboda.
-The purpose is to take in a set of digital RF data to decode a WSPR like beacon signal. 
+The purpose is to take in a set of digital RF data with at least 4 minutes of samples and decode a WSPR like beacon signal. 
 This is done by down converting the digital RF data to a temporary .wav file, which is then read by digitalRFWSPRD and the decoded information is printed. 
 Command-line Parameters: 
 * Path to directory that contains the channel directory to be decoded
@@ -21,9 +21,12 @@ Command-line Parameters:
 With how the program is currently written, using high sample rate digital RF does not work due to how the DDC is implemented 
 
 This outputs: 
-* The name of the .wav file that is decoded
-* The power level of the recived signal
-* The drift of the signal
+* The time it took to decode the .wav file
+* The snr of the recived signal
+* The time delay of the signal
 * The center frequency of the decoded signal
+* The drift of the signal
+* The encoded message (Callsign, locator, power)
 
-*  The encoded message (Callsign, locator, power)
+This decoder works for signals that are encoded using the WSPR standard but do not have to match the time or frequency standards of the signal. 
+For this to work, ensure that the digital RF data set contains at least 4 minutes of data and is down sampled to at most 2MHz sample rate before input to the program. 
