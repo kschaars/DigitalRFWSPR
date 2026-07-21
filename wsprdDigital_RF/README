@@ -1,4 +1,4 @@
-This is an adaptid version of the wsprd decoder for K1JT's Weak Signal Propagation Reporter (WSPR) mode.
+This README is for digitalRFWSPRD, an adapted version of the wsprd decoder for K1JT's Weak Signal Propagation Reporter (WSPR) mode.
 
 The program is written in C and is a command-line program that reads from a
 .c2 file or .wav file and writes output to the console. 
@@ -23,11 +23,14 @@ OPTIONS:
        -v verbose mode (shows dupes)
        -w wideband mode - decode signals within +/- 150 Hz of center
        -z x (x is fano metric table bias, default is 0.45)
+       -n <hz> Minimum decodign frequency(default 1400)
+       -x <hz> Maximum decodign frequency (defult 1600)\
+       -Z <hz> The center of the decoding range
 
 infile can be either .wav or .c2
 
 e.g. 
-./wsprd -wf 14.0956 140709_2258.wav
+./digitalRFWSPRD -wf 14.0956 140709_2258.wav
 
 Note that for .c2 files, the frequency within the file overrides the command
 line value.
