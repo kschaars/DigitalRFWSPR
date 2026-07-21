@@ -127,7 +127,7 @@ def dmod_ds(
 
     return x_ds, w_end
 
-def run_decoder(wav_path, realWSPRD, dr):
+def run_decoder(wav_path, dr):
     cmd = ["./digitalRFWSPRD", "-f", str(dr[1]),
                "-n", str(dr[0]), "-x", str(dr[2]), wav_path]
     try:
@@ -145,7 +145,7 @@ def run_decoder(wav_path, realWSPRD, dr):
         return ""
 
 def extract_and_decode_wspr(
-    drf_dir, channel, sched_df, use_gpu=True, tmp_wav_dir="./wspr_tmp", realWSPRD = 1, decodeRange = [1500,1400,1600], sweep = 0):
+    drf_dir, channel, sched_df, use_gpu=True, decodeRange = [1500,1400,1600], sweep = 0,  tmp_wav_dir="./wspr_tmp"):
     """Reads a Digital RF folder (all underlying .h5 files), processes it 
     in scheduled intervals, outputs 12kHz WAV files, and decodes them using 
     the external C binary.
@@ -260,20 +260,21 @@ def extract_and_decode_wspr(
             wavfile.write(wav_path, fs, chunk16)
             print(f"WAV file exported to: {wav_path}  (t={t:.1f}s)")
             dr = sorted(decodeRange)
-            stdout = run_decoder(wav_path, realWSPRD, dr)
+            stdout = run_decoder(wav_path, dr)
             print("\n--- Decoder Output ---")
             print(stdout)
             # Sweep only if nothing decoded and sweeping is enabled
-            if sweep == 1 and not decode_has_spots(stdout):
+            if (sweep == 1 or sweep == 2) and not decode_has_spots(stdout):
                 HALF = 80          # half of the 160 Hz window
-                for center in range(200 + HALF, 5800 - HALF + 1, 160):
+                for center in range(200 + HALF, 5800 - HALF + 1, 80):
                     lo, hi = center - HALF, center + HALF
                     print(f"Sweeping center={center} Hz  [{lo}-{hi}]")
-                    stdout = run_decoder(wav_path, realWSPRD, [lo, center, hi])
+                    stdout = run_decoder(wav_path, [lo, center, hi])
                     if decode_has_spots(stdout):
                         print("\n--- Decoder Output (sweep hit) ---")
                         print(stdout)
-                        break   # stop at first successful decode
+                        if sweep == 1:
+                            break   # stop at first successful decode
 
             seg += 1
             t   += 120.0 
@@ -308,6 +309,6 @@ if __name__ == "__main__":
         sched_df=sched,      
         use_gpu= sys.argv[4],    #Boolean for using the GPU
         decodeRange = ast.literal_eval(sys.argv[5]), #An array containing center frequency, lower, and upper decoding range
-        sweep = 1 # set to 1 for sweep, set to anything else for no sweep
+        sweep = int(sys.argv[6]) # set to 1 for sweep, set to anything else for no sweep
     )
 

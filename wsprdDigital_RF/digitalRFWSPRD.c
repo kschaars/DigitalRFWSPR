@@ -2,16 +2,14 @@
  This file is part of program wsprd, a detector/demodulator/decoder
  for the Weak Signal Propagation Reporter (WSPR) mode.
  
- File name: wsprd.c
- 
- Copyright 2001-2018, Joe Taylor, K1JT
+ File name: digitalRFWSPRD.c
  
  Much of the present code is based on work by Steven Franke, K9AN,
  which in turn was based on earlier work by K1JT.
  
- Copyright 2014-2018, Steven Franke, K9AN
+ Copyright 2026 Kevin Schaars under MIT Haystack Observatory
  
- License: GNU GPL v3
+ License: MIT License 
  
  This program is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
@@ -22,9 +20,6 @@
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  GNU General Public License for more details.
- 
- You should have received a copy of the GNU General Public License
- along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 #include <stdio.h>
@@ -62,8 +57,6 @@ unsigned char pr3[162]= {1,1,0,0,0,0,0,0,1,0,0,0,1,1,1,0,0,0,1,0,
     0,0};
 
 int printdata=0;
-
-
 
 //***************************************************************************
 unsigned long readc2file(char *ptr_to_infile, float *idat, float *qdat,
@@ -666,7 +659,7 @@ void subtract_signal2(float *id, float *qd, long np,
     
     return;
 }
-
+/*
 unsigned long writec2file(char *c2filename, int trmin, double freq
                           , float *idat, float *qdat)
 {
@@ -697,7 +690,7 @@ unsigned long writec2file(char *c2filename, int trmin, double freq
         return 0;
     }
 }
-
+*/
 unsigned int count_hard_errors( unsigned char *symbols, unsigned char *channel_symbols)
 {
     int i,is;
@@ -746,7 +739,7 @@ void usage(void)
 //***************************************************************************
 int main(int argc, char *argv[])
 {
-    char cr[] = "(C) 2018, Steven Franke - K9AN";
+    char cr[] = "(C) 2026 - Kevin Schaars under MIT Haystack Observatory";
     (void)cr;
     extern char *optarg;
     extern int optind;
@@ -1519,7 +1512,7 @@ int main(int argc, char *argv[])
                 }
             }
         }
-        
+       /* 
         if( ipass == 0 && writec2 ) {
             char c2filename[15];
             double carrierfreq=dialfreq;
@@ -1527,7 +1520,7 @@ int main(int argc, char *argv[])
             strcpy(c2filename,"000000_0001.c2");
             printf("Writing %s\n",c2filename);
             writec2file(c2filename, wsprtype, carrierfreq, idat, qdat);
-        }
+        }*/
     }
     
     // sort the result in order of increasing frequency
