@@ -7,4 +7,23 @@ Command-line Parameters:
 * Path to directory that contains the channel directory to be decoded
   * If data is recorded on the mep, this is the directory above folders such as ChA - ChD
   * Otherwise, it is the path to the directory above the directory that contains the drf_properties.h5 file (also true for the mep)
-  * If the sample is downloaded from this repository, this path should 
+  * If the sample is downloaded from this repository, this path should be to whatever directory contains the directory "TestSamples," as TestSamples is your "channel"
+* Name of the channel to be decoded
+ * Look at desciption of a channel above
+*  Booolean (True/False) to use GPU when running the program
+*  A list formatted [center, min, max] of where the program should try to decode first
+*  Value for sweep variable
+ * If set to 0, will only try to decode input rang
+ * If set to 1 or 2, will try to decode in range from 200Hz - 5800Hz in 160Hz windows with the center frequency incrementing by 80Hz
+  * If set to 1, will stop at first sucessful decode which may not be the origional signal
+  * If set to 2, will go through whole range and print any instance of a sucessful decoding
+
+With how the program is currently written, using high sample rate digital RF does not work due to how the DDC is implemented 
+
+This outputs: 
+* The name of the .wav file that is decoded
+* The power level of the recived signal
+* The drift of the signal
+* The center frequency of the decoded signal
+
+*  The encoded message (Callsign, locator, power)
