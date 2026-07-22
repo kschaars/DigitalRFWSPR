@@ -1,0 +1,79 @@
+id: WSPR_Encoding_Block
+label: WSPR Generator
+category: '[Haystack]'
+
+file_format: 1
+
+parameters:
+- id: callsign
+  label: Call Sign
+  dtype: string
+  default: 'HY5K'
+- id: locator
+  label: Grid Locator
+  dtype: string
+  default: 'AA11'
+- id: power
+  label: Power (dBm)
+  dtype: float
+  default: '20'
+- id: sampleRate
+  label: Sample Rate
+  dtype: float
+  default: samp_rate
+- id: centerBeaconFreq
+  label: Center Beacon Freq (Hz)
+  dtype: float
+  default: '0'
+  hide: part
+- id: centerOffSet
+  label: Center Offset (Hz)
+  dtype: float
+  default: '1500'
+- id: amplitude
+  label: Amplitude
+  dtype: float
+  default: '1.0'
+  hide: part
+- id: trueTone
+  label: True Tone Spacing
+  dtype: float
+  default: '1000'
+  hide: part
+- id: debug
+  label: Debug Mode
+  dtype: int
+  default: '0'
+  options: ['0', '1']
+  hide: part
+  option_labels: ['Disabled', 'Enabled']
+- id: timing
+  label: Override Minute Sync
+  dtype: int
+  default: '0'
+  options: ['0', '1']
+  option_labels: ['Sync to Minute (Real-time)', 'Continuous Transmission']
+  hide: part
+
+inputs: []
+
+outputs:
+- label: out
+  domain: stream
+  dtype: complex
+
+templates:
+  imports: import haystack
+  make: |-
+    haystack.WSPR(
+        callsign=${callsign},
+        locator=${locator},
+        power=${power},
+        sampleRate=${sampleRate},
+        centerBeaconFreq=${centerBeaconFreq},
+        centerOffSet=${centerOffSet},
+        amplitude=${amplitude},
+        trueTone=${trueTone},
+        debug=${debug},
+        timing=${timing}
+    )
