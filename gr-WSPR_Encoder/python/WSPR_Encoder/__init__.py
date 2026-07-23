@@ -20,5 +20,5 @@ except ModuleNotFoundError:
     pass
 
 # import any pure python here
-from .WSPR_Encoding_Block import WSPR_Encoding_Block
+from .WSPR_Encoding_Block import WSPR
 #

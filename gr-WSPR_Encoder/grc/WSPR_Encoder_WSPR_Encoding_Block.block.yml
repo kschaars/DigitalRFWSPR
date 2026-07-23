@@ -63,9 +63,9 @@ outputs:
   dtype: complex
 
 templates:
-  imports: import haystack
+  imports: from gnuradio import WSPR_Encoder
   make: |-
-    haystack.WSPR(
+    WSPR_Encoder.WSPR(
         callsign=${callsign},
         locator=${locator},
         power=${power},
