@@ -1,0 +1,6 @@
+/*!
+ * \defgroup block GNU Radio WSPR_WAV_SINK C++ Signal Processing Blocks
+ * \brief All C++ blocks that can be used from the WSPR_WAV_SINK GNU Radio
+ *        module are listed here or in the subcategories below.
+ *
+ */

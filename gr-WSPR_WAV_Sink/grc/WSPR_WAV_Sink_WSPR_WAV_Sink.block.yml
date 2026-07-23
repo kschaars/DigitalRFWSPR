@@ -1,0 +1,49 @@
+id: WSPR_WAV_Sink_WSPR_WAV_Sink
+label: WSPR_WAV_Sink
+category: '[Haystack]'
+
+
+templates:
+  imports: from gnuradio import WSPR_WAV_Sink 
+  make: WSPR_WAV_Sink.wsprd_time_synced_block(sample_rate=${sample_rate}, signalCenterFrequency=${signalCenterFrequency}, signalOffset=${signalOffset}, FileName=${FileName}, timing=${timing})
+
+parameters:
+- id: sample_rate
+  label: Sample Rate
+  dtype: int
+  default: 12000
+
+- id: signalCenterFrequency
+  label: Signal Center Frequency (Hz)
+  dtype: float
+  default: 915000000
+
+- id: signalOffset
+  label: Signal Offset (Hz)
+  dtype: float
+  default: 1500
+
+- id: FileName
+  label: WAV File Name
+  dtype: string
+  default: 'wspr_chunk'
+
+- id: timing
+  label: Override Timing
+  dtype: int
+  default: 0
+  widget: enum
+  options: [0, 1]
+  option_labels: ['Sync to Even Minutes', 'Force Immediate Record']
+  hide: part
+
+inputs:
+- domain: stream
+  dtype: float
+
+outputs:
+- domain: message
+  id: spots
+  optional: true
+
+file_format: 1
