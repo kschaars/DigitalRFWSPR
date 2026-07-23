@@ -1,0 +1,6 @@
+/*!
+ * \defgroup block GNU Radio PASSTHROUGH_DIGITALRF_WRITER C++ Signal Processing Blocks
+ * \brief All C++ blocks that can be used from the PASSTHROUGH_DIGITALRF_WRITER GNU Radio
+ *        module are listed here or in the subcategories below.
+ *
+ */

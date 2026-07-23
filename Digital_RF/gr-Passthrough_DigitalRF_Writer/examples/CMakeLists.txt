@@ -1,0 +1,1 @@
+install(FILES DESTINATION share/gnuradio/examples/Passthrough_DigitalRF_Writer)
